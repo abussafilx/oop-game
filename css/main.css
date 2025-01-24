@@ -19,5 +19,16 @@ body {
 .obstacle {
     background-color: rgb(245, 219, 245);
     position: absolute;
+    border-radius: 5%;
+}
 
+#page-gameover {
+    text-align: center;
+    color: white;
+    background-color: rgb(31, 4, 58);
+}
+
+#page-gameover a{
+    color: white;
+    
 }
