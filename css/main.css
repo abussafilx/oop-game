@@ -6,11 +6,18 @@ body {
 #board {
     width: 100vw;
     height: 100vh;  
-    background-color: cadetblue;
+    background-color: rgb(30, 15, 70);
     position: relative;
 }
 
 #player {
-    background-color: fuchsia;
+    background-color: rgb(187, 21, 187);
     position: absolute;
+    border-radius: 5%;
+}
+
+.obstacle {
+    background-color: rgb(245, 219, 245);
+    position: absolute;
+
 }

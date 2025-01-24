@@ -1,61 +1,93 @@
+
+
 class Player {
     constructor() {
+        this.width = 20;
+        this.height = 10;
         this.positionX = 10;
         this.positionY = 0;
-        this.width = 20;
-        this.heigth = 10;
 
-        this.playerElm = document.getElementById("player")
-        this.draw();
-
-
+        this.playerElm = document.getElementById("player");
+        this.updateUI();
     }
-
-    draw() {
+    updateUI(){
+        this.playerElm.style.width =  this.width + "vw";
+        this.playerElm.style.height =  this.height + "vh"; 
         this.playerElm.style.left = this.positionX + "vw";
         this.playerElm.style.bottom = this.positionY + "vh";
-        this.playerElm.style.width = this.width + "vw";
-        this.playerElm.style.height = this.heigth + "vh";
     }
-
     moveLeft() {
         if (this.positionX > 0) {
         this.positionX--;
-        this.draw();
+        this.updateUI();
     }}
 
     moveRight() {
-        if (this.positionX < 90) {
+        if (this.positionX < (100-this.width)){
         this.positionX++;
-        this.draw();}
-
-    }
-
-    moveUp() {
-        if (this.positionY < 90) {
-        this.positionY++;
-        this.draw();}
-
-    }
-
-    moveDown() {
-        if (this.positionY > 0) {
-        this.positionY--;
-        this.draw();
-
+        this.updateUI();
     }}
 }
 
+
+class Obstacle {
+    constructor(){
+        this.width = 20;
+        this.height = 20;
+        this.positionX = Math.floor(Math.random() * (100-this.width +1) )// random number between 0 and 100-width
+        this.positionY = 100;
+        
+        this.createDomElement();
+    }
+    createDomElement () {
+        // step1: create the element:
+        this.obstacleElm = document.createElement("div");
+
+        // step2: add content or modify
+        this.obstacleElm.className = "obstacle";
+        this.obstacleElm.style.width = this.width + "vw";
+        this.obstacleElm.style.height = this.height + "vh";
+        this.obstacleElm.style.left = this.positionX + "vw";
+        this.obstacleElm.style.bottom = this.positionY + "vh";
+
+        //step3: append to the dom: `parentElm.appendChild()`
+        const parentElm = document.getElementById("board");
+        parentElm.appendChild(this.obstacleElm);
+    }
+    moveDown() {
+        this.positionY--;
+        this.obstacleElm.style.bottom = this.positionY + "vh";
+    }
+}
+
+
+
 const player = new Player();
 
-document.addEventListener("keydown", (e) => {
-    if (e.code === "ArrowLeft") {
+const obstaclesArr = []; // will store instances of the class Obstacle
+
+
+// create obstacles
+setInterval(() => {
+    const newObstacle = new Obstacle();
+    obstaclesArr.push(newObstacle);
+}, 3000);
+
+// move obstacles
+setInterval(() => {
+    obstaclesArr.forEach((obstacleInstance) => {
+        obstacleInstance.moveDown();
+    })
+}, 30);
+
+
+
+
+document.addEventListener("keydown", (event) => {
+    if (event.code === 'ArrowLeft') {
         player.moveLeft();
-    } else if (e.code === "ArrowRight") {
+    } else if (event.code === 'ArrowRight') {
         player.moveRight();
-    } else if (e.code === "ArrowUp") {
-        player.moveUp();
-    } else if (e.code === "ArrowDown") {
-        player.moveDown();
     }
-})
+});
+
