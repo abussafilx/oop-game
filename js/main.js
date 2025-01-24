@@ -4,7 +4,7 @@ class Player {
     constructor() {
         this.width = 20;
         this.height = 10;
-        this.positionX = 10;
+        this.positionX = 50-this.width/2;
         this.positionY = 0;
 
         this.playerElm = document.getElementById("player");
@@ -18,13 +18,13 @@ class Player {
     }
     moveLeft() {
         if (this.positionX > 0) {
-        this.positionX--;
+        this.positionX-=2;
         this.updateUI();
     }}
 
     moveRight() {
         if (this.positionX < (100-this.width)){
-        this.positionX++;
+        this.positionX+=2;
         this.updateUI();
     }}
 }
@@ -32,8 +32,8 @@ class Player {
 
 class Obstacle {
     constructor(){
-        this.width = 20;
-        this.height = 20;
+        this.width = 10;
+        this.height = 10;
         this.positionX = Math.floor(Math.random() * (100-this.width +1) )// random number between 0 and 100-width
         this.positionY = 100;
         
